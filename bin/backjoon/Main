@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.StringTokenizer;
+
+public class Ex2840 {
+
+    public static void main(String[] args) throws IOException {
+        // Prepare for input
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Get N and K values
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+
+        // Initialize the wheel
+        char[] wheel = new char[N];
+
+        // Fill the wheel with characters
+        for (int i = 0; i < K; i++) {
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            char ch = st.nextToken().charAt(0);
+
+            int position = s > N ? (s % N) : s;
+            position--; // 0-based index로 변경
+            if (wheel[position] == '\0') {
+                wheel[position] = ch;
+            } else if (wheel[position] == ch) {
+                System.out.println("?");
+                return;
+            }
+        }
+
+        // Construct the result string
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < N; i++) {
+            if (wheel[i] == '\0') {
+                res.append("?");
+            } else {
+                res.append(wheel[i]);
+            }
+        }
+
+        // Print the result
+        System.out.println(res);
+    }
+}
