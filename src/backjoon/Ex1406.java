@@ -49,10 +49,11 @@ public class Ex1406 {
                     break;
             }
         }
-        int size = Editor.size();
-        for (int i = 0; i < size; i++) {
-            System.out.print(Editor.removeFirst());
+        StringBuilder sb = new StringBuilder();
+        for (char ch : Editor) {
+            sb.append(ch);
         }
+        System.out.println(sb.toString());
     }
 
 }
