@@ -43,7 +43,7 @@ public class Ex2346 {
         Balloon numberAndMoveIndex = new Balloon(0, 0);
         for (int i = 0; i < N; i++) {
             numberAndMoveIndex = balloonList.remove(arrow);
-            System.out.println("balloonList.toString() : " + balloonList.toString());
+            // System.out.println("balloonList.toString() : " + balloonList.toString());
             solveList[i] = numberAndMoveIndex.number;
             // System.out.println("solveList[i] : " + solveList[i]);
             int movingNumber = numberAndMoveIndex.moveIndex;
