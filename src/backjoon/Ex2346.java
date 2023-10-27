@@ -15,7 +15,12 @@ public class Ex2346 {
         LinkedList<Balloon> balloonList = new LinkedList<>();
 
         balloonList = makeList(balloonList, N, inputs);
-
+        int[] solveList = new int[N];
+        solveList = moveAndBoomBalloon(balloonList, N);
+        for(int i=0 ; i<N-1;i++){
+            System.out.print(solveList[i]+" ");
+        }
+        System.out.println(solveList[N-1]);
     }
 
     static class Balloon {
@@ -26,16 +31,38 @@ public class Ex2346 {
             this.number = number;
             this.moveIndex = moveIndex;
         }
-
-    }
-
-    public static LinkedList<Balloon> moveAndBoomBalloon(LinkedList<Balloon> balloonList, int N) {
-        for (int i = 0; i < N; i++) {
-
+        @Override
+        public String toString() {
+        return " " + number + " ";
         }
-        return balloonList;
     }
 
+    public static int[] moveAndBoomBalloon(LinkedList<Balloon> balloonList, int N) {
+        int arrow = 0;
+        int[] solveList = new int[N];
+        Balloon numberAndMoveIndex = new Balloon(0, 0);
+        for (int i = 0; i < N; i++) {
+            numberAndMoveIndex = balloonList.remove(arrow);
+            // System.out.println("balloonList.toString() : " + balloonList.toString());
+            solveList[i] = numberAndMoveIndex.number;
+            // System.out.println("solveList[i] : " + solveList[i]);
+            int movingNumber = numberAndMoveIndex.moveIndex;
+            arrow = balloonList.size()==1 ? 0 : arrowSet(balloonList, arrow, movingNumber);
+        }
+        return solveList;
+    }
+
+    public static int arrowSet(LinkedList<Balloon> balloonList, int arrow, int movingNumber){
+            if(balloonList.size() == 0){
+                return 0;
+            }
+            arrow %= balloonList.size();
+            arrow += movingNumber>0 ? movingNumber-1 : movingNumber;
+            arrow = arrow > 0 ? arrow : balloonList.size() + arrow;
+            arrow %= balloonList.size();
+        
+        return arrow;
+    }
     public static LinkedList<Balloon> makeList(LinkedList<Balloon> balloonList, int N, String[] inputs) {
         for (int i = 0; i < N; i++) {
             int balloonInMoveCount = Integer.parseInt(inputs[i]);
