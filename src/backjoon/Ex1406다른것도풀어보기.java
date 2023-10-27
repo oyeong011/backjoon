@@ -3,7 +3,7 @@ package backjoon;
 import java.io.*;
 import java.util.*;
 
-public class Ex1406 {
+public class Ex1406다른것도풀어보기 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
