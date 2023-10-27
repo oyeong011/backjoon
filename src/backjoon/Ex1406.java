@@ -13,8 +13,12 @@ public class Ex1406 {
             char ch = input.charAt(i);
             Editor.addLast(ch);
         }
-        // System.out.println("초기 리스트 : " + Editor.toString());
-        int idx = input.length() + 1;
+        ListIterator<Character> Arrow = Editor.listIterator();
+
+        while (Arrow.hasNext()) {
+            Arrow.next();
+        }
+
         input = br.readLine();
         int N = Integer.parseInt(input);
 
@@ -22,43 +26,24 @@ public class Ex1406 {
             String[] inputs = br.readLine().split(" ");
             switch (inputs[0]) {
                 case "L":
-                    if (idx == 1) {
-                        break;
+                    if(Arrow.hasPrevious()){
+                        Arrow.previous();
                     }
-                    idx--;
-                    // System.out.println("idxL : " + idx);
                     break;
                 case "D":
-                    if (idx == Editor.size() + 1) {
-                        break;
+                    if(Arrow.hasNext()){
+                        Arrow.next();
                     }
-                    idx++;
-                    // System.out.println("idxD : " + idx);
                     break;
                 case "B":
-                    if (idx == 1) {
-                        break;
-                    } else if (idx == Editor.size() + 1) {
-                        Editor.removeLast();
-                        idx--;
-                    } else {
-                        Editor.remove(idx - 2);
-                        idx--;
+                    if(Arrow.hasPrevious()){
+                        Arrow.previous();
+                        Arrow.remove();
                     }
                     // System.out.println("EditorB : " + Editor.toString());
                     break;
                 case "P":
-                    if (idx == Editor.size() + 1) {
-                        Editor.addLast(inputs[1].charAt(0));
-                        idx++;
-                    } else if (idx == 1) {
-                        Editor.addFirst(inputs[1].charAt(0));
-                        idx++;
-                    } else {
-                        Editor.add(idx - 1, inputs[1].charAt(0));
-                        idx++;
-                    }
-                    // System.out.println("EditorP : " + idx + " " + Editor.toString());
+                    Arrow.add(inputs[1].charAt(0));
                     break;
                 default:
                     break;
