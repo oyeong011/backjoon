@@ -1,4 +1,4 @@
-package backjoon.스택덱;
+package backjoon.스택덱큐;
 
 import java.io.BufferedReader;
 import java.io.IOException;
