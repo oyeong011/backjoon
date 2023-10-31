@@ -1,4 +1,4 @@
-package backjoon.스택;
+package backjoon.스택덱;
 
 import java.io.*;
 import java.util.*;
