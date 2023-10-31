@@ -1,11 +1,9 @@
 package 자료구조.linkedList;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import org.w3c.dom.Node;
 
 public class MyDoublyLinkedList<E> {
 
