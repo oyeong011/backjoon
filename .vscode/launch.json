@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Ex9012",
+            "request": "launch",
+            "mainClass": "backjoon.스택덱큐.Ex9012",
+            "projectName": "JavaLang_74dc11e1"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
