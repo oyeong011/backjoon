@@ -1,23 +1,25 @@
 package backjoon.트리;
 
 import java.io.IOException;
-
+import java.util.*;
 /**
  * Ex1991
  */
 public class Ex1991 {
-    public class Tree{
+    public static class Tree{
+        private Node root;
+        private Map<Character, Node> nodeMap;
         int count;
         public Tree(){
-
+            nodeMap = new HashMap<>();
         }
 
         public class Node{
-            Object data;
+            char data;
             Node left;
             Node right;
 
-            public Node(Object data){
+            public Node(char data){
                 this.data = data;
                 this.left = null;
                 this.right = null;
@@ -44,9 +46,25 @@ public class Ex1991 {
             }
         }
 
-        public Node addNode(Object data){
-            Node n = new Node(data);
-            return n;
+        public void addNode(char data, char leftData, char rightData){
+            Node parentNode = nodeMap.getOrDefault(data, new Node(data));
+            nodeMap.putIfAbsent(data, parentNode);
+
+            if(leftData != '.'){
+                Node leftNode = new Node(leftData);
+                parentNode.left = leftNode;
+                nodeMap.put(leftData, leftNode);
+            }
+
+            if(rightData != '.'){
+                Node rightNode = new Node(rightData);
+                parentNode.right = rightNode;
+                nodeMap.put(rightData, rightNode);
+            }
+
+            if(root == null){
+                root = parentNode;
+            }
         }
 
         public void inOrder(Node node){
@@ -55,8 +73,8 @@ public class Ex1991 {
             }
 
             inOrder(node.left);
-            System.out.println(node.data);
-            inOrder(node.left);
+            System.out.print(node.data);
+            inOrder(node.right);
         }
 
         public void preOrder(Node node){
@@ -64,9 +82,9 @@ public class Ex1991 {
                 return;
             }
 
-            System.out.println(node.data);
+            System.out.print(node.data);
             preOrder(node.left);
-            preOrder(node.left);
+            preOrder(node.right);
         }
 
         public void postOrder(Node node){
@@ -75,13 +93,26 @@ public class Ex1991 {
             }
 
             postOrder(node.left);
-            postOrder(node.left);
-            System.out.println(node.data);
+            postOrder(node.right);
+            System.out.print(node.data);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
+        int num = read();
+        Tree tree = new Tree();
+        for(int i = 0 ; i < num; i++){
+            char parentNode = readChar();
+            char leftNode = readChar();
+            char rightNode = readChar();
+            tree.addNode(parentNode, leftNode, rightNode);
+        }
         
+        tree.preOrder(tree.root);
+        System.out.println();
+        tree.inOrder(tree.root);
+        System.out.println();
+        tree.postOrder(tree.root);
     }
 
     public static int read() throws IOException{
@@ -104,6 +135,9 @@ public class Ex1991 {
             c = System.in.read();
             // 대문자인지 확인 (ASCII 코드 65-90)
             if (c >= 65 && c <= 90) {
+                return (char) c;
+            }
+            if (c == 46) {
                 return (char) c;
             }
         }
