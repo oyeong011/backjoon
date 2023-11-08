@@ -2,73 +2,80 @@ package backjoon.트리;
 
 import java.io.IOException;
 import java.util.*;
+
 /**
  * Ex1991
  */
 public class Ex1991 {
-    public static class Tree{
+    public static class Tree {
         private Node root;
         private Map<Character, Node> nodeMap;
         int count;
-        public Tree(){
+
+        public Tree() {
             nodeMap = new HashMap<>();
         }
 
-        public class Node{
+        public class Node {
             char data;
             Node left;
             Node right;
 
-            public Node(char data){
+            public Node(char data) {
                 this.data = data;
                 this.left = null;
                 this.right = null;
             }
 
-            public void addLeft(Node node){
+            public void addLeft(Node node) {
                 left = node;
                 count++;
             }
 
-            public void addRight(Node node){
+            public void addRight(Node node) {
                 right = node;
                 count++;
             }
 
-            public void deleteLeft(){
+            public void deleteLeft() {
                 left = null;
                 count--;
             }
 
-            public void deleteRight(){
+            public void deleteRight() {
                 right = null;
                 count--;
             }
         }
 
-        public void addNode(char data, char leftData, char rightData){
-            Node parentNode = nodeMap.getOrDefault(data, new Node(data));
+        public void addNode(char data, char leftData, char rightData) {
+            Node parentNode = nodeMap.getOrDefault(data, new Node(data)); // 키에 대응하는 값을 맵에서 검색
             nodeMap.putIfAbsent(data, parentNode);
+            // Map<String, Integer> map = new HashMap<>();
+            // map.put("apple", 10);
+            // map.put("banana", 20);
 
-            if(leftData != '.'){
+            // int appleCount = map.getOrDefault("apple", 0); // 10 반환
+            // int orangeCount = map.getOrDefault("orange", 0); // 0 반환, "orange" 키가 존재하지 않기 때문에 기본값 0을 반환
+            if (leftData != '.') {
                 Node leftNode = new Node(leftData);
                 parentNode.left = leftNode;
                 nodeMap.put(leftData, leftNode);
             }
 
-            if(rightData != '.'){
+            if (rightData != '.') {
                 Node rightNode = new Node(rightData);
                 parentNode.right = rightNode;
                 nodeMap.put(rightData, rightNode);
             }
 
-            if(root == null){
+            if (root == null) {
                 root = parentNode;
             }
         }
 
-        public void inOrder(Node node){
-            if(node == null){
+        public void inOrder(Node node) {
+            if (node == null) {
                 return;
             }
 
@@ -77,8 +84,8 @@ public class Ex1991 {
             inOrder(node.right);
         }
 
-        public void preOrder(Node node){
-            if(node == null){
+        public void preOrder(Node node) {
+            if (node == null) {
                 return;
             }
 
@@ -87,8 +94,8 @@ public class Ex1991 {
             preOrder(node.right);
         }
 
-        public void postOrder(Node node){
-            if(node == null){
+        public void postOrder(Node node) {
+            if (node == null) {
                 return;
             }
 
@@ -98,16 +105,16 @@ public class Ex1991 {
         }
     }
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         int num = read();
         Tree tree = new Tree();
-        for(int i = 0 ; i < num; i++){
+        for (int i = 0; i < num; i++) {
             char parentNode = readChar();
             char leftNode = readChar();
             char rightNode = readChar();
             tree.addNode(parentNode, leftNode, rightNode);
         }
-        
+
         tree.preOrder(tree.root);
         System.out.println();
         tree.inOrder(tree.root);
@@ -115,12 +122,12 @@ public class Ex1991 {
         tree.postOrder(tree.root);
     }
 
-    public static int read() throws IOException{
+    public static int read() throws IOException {
         int c, n = System.in.read() & 15;
 
         boolean isNegative = n == 13;
 
-        if(isNegative){
+        if (isNegative) {
             n = System.in.read();
         }
 
@@ -129,6 +136,7 @@ public class Ex1991 {
         }
         return isNegative ? ~n + 1 : n;
     }
+
     public static char readChar() throws IOException {
         int c;
         while (true) {
