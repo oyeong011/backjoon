@@ -36,11 +36,11 @@ public class Ex1068 {
                 root = nodeList[i];
                 continue;
             } else {
-                isLeaf[i] = true;
+                isLeaf[i] = nodeList[i].childNode.isEmpty();
                 nodeList[i].parentData = nodeNumber;
                 nodeList[nodeNumber].addChild(nodeList[i]);
             }
-            if (isLeaf[nodeNumber]) isLeaf[nodeNumber] = false;
+            isLeaf[nodeNumber] = false;
         }
 
         int removeNode = read();
