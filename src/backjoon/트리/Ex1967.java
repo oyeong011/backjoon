@@ -1,82 +1,64 @@
 package backjoon.트리;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+/**
+ * Ex1967
+ */
 public class Ex1967 {
-    public final int MAX_DISTANCE = 0;
+    static ArrayList<Node> nodeList[];
+    static boolean[] isVisit;
+    static int Max_distance;
+    static int Max_index;
     static class Node{
-        int data;
-        Node parent;
-        List<Node> childNodeList;
+        int index;
         int weight;
-        public Node(int data){
-            this.data = data;
-            this.childNodeList = new ArrayList<>();
+        Node(int index, int weight){
+            this.index = index;
+            this.weight = weight;
         }
-        public void addChild(Node childNode, int weight){
-            childNode.weight = weight;
-            childNode.parent = this;
-            childNodeList.add(childNode);
-        }
-        
-
-    }
-    static class Result{
-        Node farthestNode;
-        int maxDistance;
-    }
-    public static int read() throws IOException{
-        int c, n = System.in.read() & 15;
-        boolean isNegative = n == 13;
-        if(isNegative){
-            n = System.in.read() & 15;
-        }
-
-        while ((c = System.in.read()) > 32) {
-            n = (n << 3) + (n << 1) + (c & 15);
-        }
-        if(c == 13) System.in.read();
-
-        return isNegative ? ~n + 1 : n;
     }
 
-    public static void in() throws IOException{
-        int N = read();
-        Node[] tree = new Node[N];
-        for(int i = 0 ; i < N; i++){
-            tree[i] = new Node(i+1);
+    public static void dfs(int index, int weight){
+        if(Max_distance < weight){
+            Max_distance = weight;
+            Max_index = index;
         }
-        for(int i = 0; i < N - 1; i++){
-            int parentIdxNum = read(); 
-            int childIdxNum = read(); 
-            int weight = read(); 
-            tree[parentIdxNum-1].addChild(tree[childIdxNum-1], weight);
-        }
-        solve(tree);
-    }
-    public static void solve(Node[] tree){
-        Node root = tree[0]; 
-        Result result1 = dfs(root, root.parent, 0);
-        Result result2 = dfs(result1.farthestNode, result1.farthestNode.parent, 0);
-        System.out.println(result2.maxDistance);
-    }
-    public static Result dfs(Node node, Node parent, int distance){
-        Result result = new Result();
-        result.farthestNode = node;
-        result.maxDistance = distance;
 
-        for(Node child : node.childNodeList){
-            if(child != parent){
-                Result childResult = dfs(child, node, distance + child.weight);
-                if(childResult.maxDistance > result.maxDistance){
-                    result = childResult;
-                }
+        for(Node child : nodeList[index]){
+            if(!isVisit[child.index]){
+                isVisit[child.index] = true;
+                dfs(child.index, weight + child.weight);
             }
         }
-        if(node.parent != null && node.parent != parent)
-        return result;
     }
     public static void main(String[] args) throws IOException{
-        in();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int N = Integer.parseInt(br.readLine());
+        nodeList = new ArrayList[N + 1];
+
+        for(int i = 0; i <= N; i++){
+            nodeList[i] = new ArrayList<>();
+        }
+        for(int i = 0; i < N - 1; i++){
+            String[] t = br.readLine().split(" ");
+            int parent = Integer.parseInt(t[0]);
+            int child = Integer.parseInt(t[1]);
+            int weight = Integer.parseInt(t[2]);
+            nodeList[parent].add(new Node(child, weight));
+            nodeList[child].add(new Node(parent, weight));
+        }
+        isVisit = new boolean[N + 1];
+        isVisit[1] = true;
+        dfs(1, 0);
+        
+        isVisit = new boolean[N + 1];
+        isVisit[Max_index] = true;
+        dfs(Max_index, 0);
+        System.out.println(Max_distance);
     }
 }
