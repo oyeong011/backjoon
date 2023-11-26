@@ -4,21 +4,36 @@ import java.io.*;
 import java.util.*;
 
 public class Ex5568 {
+    static Set<Integer> set = new HashSet<>();
     
     public static void main(String[] args) throws IOException{
         int N = read();
         int K = read();
 
-        Set<Integer> set = new HashSet<>();
-
-        String[] arr = new String[N];
+        List<String> arr = new ArrayList<String>();
         for(int i = 0; i < N; i++){
-            arr[i] = String.valueOf(read());
+            String input = String.valueOf(read());
+            arr.add(input);
         }
+        duplicateInspection(arr, K, "");
         
+        System.out.println(set.size());
     }
 
-    public static void duplicateInspcetion(String[] arr, )
+    public static void duplicateInspection(List<String> arr, int K, String str){
+        if(K == 0){
+            set.add(Integer.parseInt(str));
+            return;
+        }
+
+        for(int i = 0; i < arr.size(); i++){
+            String temp = arr.get(i);
+            arr.remove(i);
+            duplicateInspection(arr, K - 1, str + temp);
+            arr.add(i, temp);
+        }
+    }
+
 
 
     public static int read() throws IOException{
