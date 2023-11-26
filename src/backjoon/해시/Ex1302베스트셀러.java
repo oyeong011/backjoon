@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.*;
 
 public class Ex1302베스트셀러 {
+
+    static Map<String, Integer> Book = new HashMap<>();
+
     public static int read() throws IOException {
         int c, n = System.in.read() & 15;
         boolean isNegative = n == 13;
@@ -26,9 +29,38 @@ public class Ex1302베스트셀러 {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        int N = read();
-        Map<String, Integer> Book = new HashMap<>();
+    public static void solve(int N) throws IOException{
+        for(int i = 0; i < N; i++){
+            String book = readStr();
+            if(Book.containsKey(book)){
+                Book.put(book, Book.get(book) + 1);
+            }
+            else{
+                Book.put(book, 1);
+            }
+        }
+    }
+    public static void printMaxBook(){
+        int max = 0;
+        List<String> list = new ArrayList<>();
+
+        for(String key : Book.keySet()){
+            int val = Book.get(key);
+            if(max < val){
+                max = val;
+                list.clear();
+                list.add(key);
+            }else if(max == val){
+                list.add(key);
+            }
+        }
+        Collections.sort(list);
+        System.out.print(list.get(0));
     }
 
+    public static void main(String[] args) throws IOException{
+        int N = read();
+        solve(N);
+        printMaxBook();
+    }
 }
