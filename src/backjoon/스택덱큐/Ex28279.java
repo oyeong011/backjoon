@@ -9,11 +9,5 @@ public class Ex28279 {
 
 
     }
-    private static int readInt() throws Exception{
-        int c, n = System.in.read() & 15;
-
-        while ((c = System.in.read()) > 32) {
-            
-        }
-    }
+    
 }
