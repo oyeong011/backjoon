@@ -1,0 +1,22 @@
+
+a	java:S112¨"FDefine and throw a dedicated exception instead of using a generic one.(¯åÕøÿÿÿÿ
+f	java:S117["QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö«û
+f	java:S117]"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ¹Æ†
+g	java:S117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö«û
+l	java:S117–"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥÷ÄÒúÿÿÿÿ
+l	java:S117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğÎ’™ûÿÿÿÿ
+l	java:S117ª"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êÖî„ÿÿÿÿÿ
+f	java:S117«"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ„¯\
+g	java:S117¬"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ï×Ç—
+g	java:S117İ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚéŞ„
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Œº£‘
+Q	java:S125L"<This block of commented-out lines of code should be removed.(™ÒÙŒ
+Q	java:S125O"<This block of commented-out lines of code should be removed.(êÁ†¾
+Q	java:S125R"<This block of commented-out lines of code should be removed.(ÕüˆÏ
+R	java:S125"<This block of commented-out lines of code should be removed.(‘†Ñ
+W	java:S125†"<This block of commented-out lines of code should be removed.(©´¶öşÿÿÿÿ
+R	java:S125ˆ"<This block of commented-out lines of code should be removed.(—ŞÌ
+R	java:S125‹"<This block of commented-out lines of code should be removed.(‘¨‚¡
+W	java:S125"<This block of commented-out lines of code should be removed.(…ÖÄ÷úÿÿÿÿ
+E
+java:S1905í")Remove this unnecessary cast to "Object".(æ³€…ûÿÿÿÿ

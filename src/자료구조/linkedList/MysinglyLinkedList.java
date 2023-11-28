@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * MysinglyLinkedList
  */
-public class MysinglyLinkedList<E> {
+public class  MysinglyLinkedList<E> {
     
     private static class Node<E> {
         private E item; // Node에 담을 데이터
