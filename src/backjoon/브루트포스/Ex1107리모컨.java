@@ -5,89 +5,54 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Ex1107리모컨 {
-    static int start = 100;
+    static int N, M, N_length;
+    static boolean[] broken;
+    static int min;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        char[] Channel = br.readLine().toCharArray();
-        int[] ChannelInt = new int[Channel.length];
-        for(int i = 0; i < Channel.length; i++){
-            ChannelInt[i] = Channel[i] - '0';
+        N = Integer.parseInt(br.readLine());
+        N_length = numberOfDigits(N);
+        M = Integer.parseInt(br.readLine());
+        min = Math.abs(N - 100);
+        broken = new boolean[10];
+
+        if (M != 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            for (int i = 0; i < M; i++) {
+                int num = Integer.parseInt(st.nextToken());
+                broken[num] = true;
+            }
         }
 
-        int M = Integer.parseInt(br.readLine());
-        if(M == 0){
-            getMinNumber(makeChannel(ChannelInt), makeChannel(ChannelInt));
+        dfs(0, 0);
+
+        System.out.println(min);
+    }
+
+    public static int numberOfDigits(int num) {
+        num = Math.abs(num);
+        return String.valueOf(num).length();
+    }
+
+    public static void dfs(int click, int num) {
+        if(click > 6){
             return;
         }
-        boolean[] isBroken = new boolean[10];
-        String[] broken = br.readLine().split(" ");
-        for(String b : broken){
-            isBroken[Integer.parseInt(b)] = true;
+        if(click > 0){
+            int currentNum = click + Math.abs(N - num);
+            min = Math.min(min, currentNum);
         }
 
-        List<Integer> unBrokenButton = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            if(!isBroken[i]){
-                unBrokenButton.add(i);
+        for (int i = 0; i < 10; i++) {
+            if (!broken[i]) {
+                dfs(click + 1, num * 10 + i);
             }
         }
-
-
-        int[] nearChannel = setNearlyChannel(unBrokenButton, ChannelInt);
-        int nearNum = makeChannel(nearChannel);
-        int targetNum = makeChannel(ChannelInt);
-
-        getMinNumber(nearNum, targetNum);
-
-    }
-    public static int makeChannel(int[] Channel){
-        int Num = 0;
-        for(int i : Channel){
-            Num = Num * 10 + i;
-        }
-        return Num;
-    }
-    public static void getMinNumber(int nearNum, int targetNum){
-        int startChannel = 100;
-        int nearChannel = Math.abs(targetNum - startChannel);
-        int nearChannel2 = Math.abs(nearNum - targetNum) + String.valueOf(nearNum).length();
-        int nearChannel3 = Math.abs(startChannel - targetNum) + String.valueOf(startChannel).length();
-
-        int minChannel = Math.min(nearChannel, nearChannel2);
-        minChannel = Math.min(minChannel, nearChannel3);
-
-        System.out.println(minChannel);
-
-
-    }
-    public static int[] setNearlyChannel(List<Integer> unBrokenButton, int[] ChannelInt){
-        int[] nearChannel = new int[ChannelInt.length];
-
-        for(int i = 0; i < ChannelInt.length; i++){
-            if(!unBrokenButton.contains(ChannelInt[i])){
-                nearChannel[i] = checkMinNumber(ChannelInt[i], unBrokenButton);
-            } else {
-                nearChannel[i] = ChannelInt[i];
-            }
-        }
-
-        return nearChannel;
-    }
-    public static int checkMinNumber(int channelNum, List<Integer> unBrokenButton){
-        int nearVal = 100;;
-        int returnVal = 0;
-        for (Integer integer : unBrokenButton) {
-            int Val = Math.abs(channelNum - integer);
-            if (Val < nearVal) {
-                nearVal = Val;
-                returnVal = integer;
-            }
-        }
-
-        return returnVal;
 
     }
 }
